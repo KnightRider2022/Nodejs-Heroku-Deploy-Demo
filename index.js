@@ -1,18 +1,16 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
+const path = require('path');
+const router = express.Router();
 const port = process.env.PORT || 3000
 
-/* 
-    Incase you are using mongodb atlas database uncomment below line
-    and replace "mongoAtlasUri" with your mongodb atlas uri.
-*/
-// mongoose.connect( mongoAtlasUri, {useNewUrlParser: true, useUnifiedTopology: true})
+router.get('/',function(req,res){
+  res.sendFile(path.join(__dirname+'/html/index.html'));
+  //__dirname : It will resolve to your project folder.
+});
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+//add the router
+app.use('/', router);
+app.listen(port);
 
-app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`)
-})
-
+console.log('Running at Port 3000');
